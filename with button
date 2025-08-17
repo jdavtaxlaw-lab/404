@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network Error - Page Unavailable</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen font-poppins">
+  <section class="container mx-auto px-4 py-8 text-center animate-fadeIn">
+    <div class="error max-w-md mx-auto">
+      <h1 class="text-5xl font-bold text-gray-800 mb-3">Oops!</h1>
+      <h2 class="text-xl font-semibold text-gray-700 mb-2">Your Network Hung...</h2>
+      <p class="text-gray-600 mb-6">Your browser is acting unusual. Please try refreshing the page manually.</p>
+      <div class="cta">
+        <button onclick="window.location.reload()" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition duration-200">Refresh</button>
+      </div>
+    </div>
+    <img src="https://github.com/smthari/404-page-using-html-css/blob/Starter/Images/404.png?raw=true" alt="Network Error Illustration" class="mt-6 max-w-xs mx-auto">
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const nav = performance.getEntriesByType('navigation')[0];
+      if (nav && nav.type === 'reload' && window.location.pathname !== '/') {
+        window.location.href = '/';
+      }
+    });
+  </script>
+</body>
+</html>
