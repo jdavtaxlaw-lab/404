@@ -31,8 +31,8 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const nav = performance.getEntriesByType('navigation')[0];
-      if (nav && nav.type === 'reload' && window.location.pathname !== '/') {
-        window.location.href = 'youtube.com';
+      if (nav && nav.type === 'reload') {
+        window.location.href = 'https://youtube.com'; // full URL required
       }
     });
   </script>
