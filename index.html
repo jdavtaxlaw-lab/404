@@ -11,16 +11,18 @@
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    .animate-fadeIn {
-      animation: fadeIn 0.8s ease-out forwards;
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0; }
+      40% { opacity: 1; }
     }
-    img {
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
-    }
+    .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
+    .dot { animation: blink 1.4s infinite both; }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
   </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen font-poppins">
-  <section class="container mx-auto px-4 py-8 text-center animate-fadeIn">
+  <section id="errorScreen" class="container mx-auto px-4 py-8 text-center animate-fadeIn">
     <div class="error max-w-md mx-auto">
       <h1 class="text-5xl font-bold text-gray-800 mb-3">Oops!</h1>
       <h2 class="text-xl font-semibold text-gray-700 mb-2">Your Network Hung...</h2>
@@ -28,11 +30,28 @@
     </div>
     <img src="https://github.com/smthari/404-page-using-html-css/blob/Starter/Images/404.png?raw=true" alt="Network Error Illustration" class="mt-6 max-w-md mx-auto w-full h-auto">
   </section>
+
+  <section id="loadingScreen" class="hidden text-center">
+    <div class="flex justify-center items-center space-x-2 text-gray-800 text-4xl mt-20">
+      <span class="dot">•</span>
+      <span class="dot">•</span>
+      <span class="dot">•</span>
+    </div>
+    <p class="text-gray-600 mt-4">Loading...</p>
+  </section>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const nav = performance.getEntriesByType('navigation')[0];
       if (nav && nav.type === 'reload') {
-        window.location.href = 'https://youtube.com'; // full URL required
+        // Hide error screen, show loading dots
+        document.getElementById('errorScreen').classList.add('hidden');
+        document.getElementById('loadingScreen').classList.remove('hidden');
+
+        // Redirect after short delay
+        setTimeout(() => {
+          window.location.href = '/verify.html'; // no extra params appended
+        }, 1500);
       }
     });
   </script>
